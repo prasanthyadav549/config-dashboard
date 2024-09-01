@@ -1,654 +1,110 @@
 import { Button, Container, Typography } from '@mui/material';
 import { MaterialReactTable, useMaterialReactTable } from 'material-react-table';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
+import moment from 'moment-timezone';
+import ModelComponent from '../components/Model';
 
-const TableComponent = () => {
+const TableComponent = ({ tableColumns, rows, updateRowInSnowflake, insertRowInSnowflake, isDialogOpen,setIsDialogOpen, formValues, setFormValues, handleDialogOpen, handleDialogClose, handleInputChange, handleFormSubmit}) => {
     const [header, setHeader] = useState("Fitment Configuration Management");
-    
-    const columns = useMemo(() => [
-        { accessorKey: "REPORT_ID", header: "Report ID" },
-        { accessorKey: "LINE_REVIEW", header: "Line Review" },
-        { accessorKey: "REPORT_IS_ACTIVE", header: "Report Is Active" },
-        { accessorKey: "BASE_LINE", header: "Base Line" },
-        { accessorKey: "BASE_FILTER", header: "Base Filter" },
-        { accessorKey: "COMP_LINE", header: "Comp Line" },
-        { accessorKey: "COMP_FILTER", header: "Comp Filter" },
-        { accessorKey: "PL_LINE", header: "PL Line" },
-        { accessorKey: "PL_FILTER", header: "PL Filter" },
-        { accessorKey: "CONFIG_IS_ACTIVE", header: "Config Is Active" },
-        { accessorKey: "LAST_RUN", header: "Last Run" },
-        { accessorKey: "PART_TYPE_FILTER", header: "Part Type Filter" }
-    ], []);
-    
-    const data = useMemo(() => [
-        {
-            REPORT_ID: 1,
-            LINE_REVIEW: "Review 1",
-            REPORT_IS_ACTIVE: "true",
-            BASE_LINE: "Base 1",
-            BASE_FILTER: "Filter 1",
-            COMP_LINE: "Comp 1",
-            COMP_FILTER: "Filter 2",
-            PL_LINE: "PL 1",
-            PL_FILTER: "Filter 3",
-            CONFIG_IS_ACTIVE: false,
-            LAST_RUN: "2023-01-01",
-            PART_TYPE_FILTER: "Type 1"
-        },
 
-        {
-            REPORT_ID: 2,
-            LINE_REVIEW: "Review 2",
-            REPORT_IS_ACTIVE: true,
-            BASE_LINE: "Base 2",
-            BASE_FILTER: "Filter 2",
-            COMP_LINE: "Comp 2",
-            COMP_FILTER: "Filter 2",
-            PL_LINE: "PL 2",
-            PL_FILTER: "F1,f2,f3",
-            CONFIG_IS_ACTIVE: false,
-            LAST_RUN: "2023-01-01",
-            PART_TYPE_FILTER: "Type 2"
-        },
-        {
-            REPORT_ID: 2,
-            LINE_REVIEW: "Review 2",
-            REPORT_IS_ACTIVE: true,
-            BASE_LINE: "Base 2",
-            BASE_FILTER: "Filter 2",
-            COMP_LINE: "Comp 2",
-            COMP_FILTER: "Filter 2",
-            PL_LINE: "PL 2",
-            PL_FILTER: "F1,f2,f3",
-            CONFIG_IS_ACTIVE: false,
-            LAST_RUN: "2023-01-01",
-            PART_TYPE_FILTER: "Type 2"
-        },
-        {
-            REPORT_ID: 2,
-            LINE_REVIEW: "Review 2",
-            REPORT_IS_ACTIVE: true,
-            BASE_LINE: "Base 2",
-            BASE_FILTER: "Filter 2",
-            COMP_LINE: "Comp 2",
-            COMP_FILTER: "Filter 2",
-            PL_LINE: "PL 2",
-            PL_FILTER: "F1,f2,f3",
-            CONFIG_IS_ACTIVE: false,
-            LAST_RUN: "2023-01-01",
-            PART_TYPE_FILTER: "Type 2"
-        },
-        {
-            REPORT_ID: 2,
-            LINE_REVIEW: "Review 2",
-            REPORT_IS_ACTIVE: true,
-            BASE_LINE: "Base 2",
-            BASE_FILTER: "Filter 2",
-            COMP_LINE: "Comp 2",
-            COMP_FILTER: "Filter 2",
-            PL_LINE: "PL 2",
-            PL_FILTER: "F1,f2,f3",
-            CONFIG_IS_ACTIVE: false,
-            LAST_RUN: "2023-01-01",
-            PART_TYPE_FILTER: "Type 2"
-        },
-        {
-            REPORT_ID: 2,
-            LINE_REVIEW: "Review 2",
-            REPORT_IS_ACTIVE: true,
-            BASE_LINE: "Base 2",
-            BASE_FILTER: "Filter 2",
-            COMP_LINE: "Comp 2",
-            COMP_FILTER: "Filter 2",
-            PL_LINE: "PL 2",
-            PL_FILTER: "F1,f2,f3",
-            CONFIG_IS_ACTIVE: false,
-            LAST_RUN: "2023-01-01",
-            PART_TYPE_FILTER: "Type 2"
-        },
-        {
-            REPORT_ID: 2,
-            LINE_REVIEW: "Review 2",
-            REPORT_IS_ACTIVE: true,
-            BASE_LINE: "Base 2",
-            BASE_FILTER: "Filter 2",
-            COMP_LINE: "Comp 2",
-            COMP_FILTER: "Filter 2",
-            PL_LINE: "PL 2",
-            PL_FILTER: "F1,f2,f3",
-            CONFIG_IS_ACTIVE: false,
-            LAST_RUN: "2023-01-01",
-            PART_TYPE_FILTER: "Type 2"
-        },
-        {
-            REPORT_ID: 2,
-            LINE_REVIEW: "Review 2",
-            REPORT_IS_ACTIVE: true,
-            BASE_LINE: "Base 2",
-            BASE_FILTER: "Filter 2",
-            COMP_LINE: "Comp 2",
-            COMP_FILTER: "Filter 2",
-            PL_LINE: "PL 2",
-            PL_FILTER: "F1,f2,f3",
-            CONFIG_IS_ACTIVE: false,
-            LAST_RUN: "2023-01-01",
-            PART_TYPE_FILTER: "Type 2"
-        },
-        {
-            REPORT_ID: 2,
-            LINE_REVIEW: "Review 2",
-            REPORT_IS_ACTIVE: true,
-            BASE_LINE: "Base 2",
-            BASE_FILTER: "Filter 2",
-            COMP_LINE: "Comp 2",
-            COMP_FILTER: "Filter 2",
-            PL_LINE: "PL 2",
-            PL_FILTER: "F1,f2,f3",
-            CONFIG_IS_ACTIVE: false,
-            LAST_RUN: "2023-01-01",
-            PART_TYPE_FILTER: "Type 2"
-        },
-        {
-            REPORT_ID: 2,
-            LINE_REVIEW: "Review 2",
-            REPORT_IS_ACTIVE: true,
-            BASE_LINE: "Base 2",
-            BASE_FILTER: "Filter 2",
-            COMP_LINE: "Comp 2",
-            COMP_FILTER: "Filter 2",
-            PL_LINE: "PL 2",
-            PL_FILTER: "F1,f2,f3",
-            CONFIG_IS_ACTIVE: false,
-            LAST_RUN: "2023-01-01",
-            PART_TYPE_FILTER: "Type 2"
-        },
-        {
-            REPORT_ID: 2,
-            LINE_REVIEW: "Review 2",
-            REPORT_IS_ACTIVE: true,
-            BASE_LINE: "Base 2",
-            BASE_FILTER: "Filter 2",
-            COMP_LINE: "Comp 2",
-            COMP_FILTER: "Filter 2",
-            PL_LINE: "PL 2",
-            PL_FILTER: "F1,f2,f3",
-            CONFIG_IS_ACTIVE: false,
-            LAST_RUN: "2023-01-01",
-            PART_TYPE_FILTER: "Type 2"
-        },
-        {
-            REPORT_ID: 2,
-            LINE_REVIEW: "Review 2",
-            REPORT_IS_ACTIVE: true,
-            BASE_LINE: "Base 2",
-            BASE_FILTER: "Filter 2",
-            COMP_LINE: "Comp 2",
-            COMP_FILTER: "Filter 2",
-            PL_LINE: "PL 2",
-            PL_FILTER: "F1,f2,f3",
-            CONFIG_IS_ACTIVE: false,
-            LAST_RUN: "2023-01-01",
-            PART_TYPE_FILTER: "Type 2"
-        },
-        {
-            REPORT_ID: 2,
-            LINE_REVIEW: "Review 2",
-            REPORT_IS_ACTIVE: true,
-            BASE_LINE: "Base 2",
-            BASE_FILTER: "Filter 2",
-            COMP_LINE: "Comp 2",
-            COMP_FILTER: "Filter 2",
-            PL_LINE: "PL 2",
-            PL_FILTER: "F1,f2,f3",
-            CONFIG_IS_ACTIVE: false,
-            LAST_RUN: "2023-01-01",
-            PART_TYPE_FILTER: "Type 2"
-        },
-        {
-            REPORT_ID: 2,
-            LINE_REVIEW: "Review 2",
-            REPORT_IS_ACTIVE: true,
-            BASE_LINE: "Base 2",
-            BASE_FILTER: "Filter 2",
-            COMP_LINE: "Comp 2",
-            COMP_FILTER: "Filter 2",
-            PL_LINE: "PL 2",
-            PL_FILTER: "F1,f2,f3",
-            CONFIG_IS_ACTIVE: false,
-            LAST_RUN: "2023-01-01",
-            PART_TYPE_FILTER: "Type 2"
-        },
-        {
-            REPORT_ID: 2,
-            LINE_REVIEW: "Review 2",
-            REPORT_IS_ACTIVE: true,
-            BASE_LINE: "Base 2",
-            BASE_FILTER: "Filter 2",
-            COMP_LINE: "Comp 2",
-            COMP_FILTER: "Filter 2",
-            PL_LINE: "PL 2",
-            PL_FILTER: "F1,f2,f3",
-            CONFIG_IS_ACTIVE: false,
-            LAST_RUN: "2023-01-01",
-            PART_TYPE_FILTER: "Type 2"
-        },
-        {
-            REPORT_ID: 2,
-            LINE_REVIEW: "Review 2",
-            REPORT_IS_ACTIVE: true,
-            BASE_LINE: "Base 2",
-            BASE_FILTER: "Filter 2",
-            COMP_LINE: "Comp 2",
-            COMP_FILTER: "Filter 2",
-            PL_LINE: "PL 2",
-            PL_FILTER: "F1,f2,f3",
-            CONFIG_IS_ACTIVE: false,
-            LAST_RUN: "2023-01-01",
-            PART_TYPE_FILTER: "Type 2"
-        },
-        {
-            REPORT_ID: 2,
-            LINE_REVIEW: "Review 2",
-            REPORT_IS_ACTIVE: true,
-            BASE_LINE: "Base 2",
-            BASE_FILTER: "Filter 2",
-            COMP_LINE: "Comp 2",
-            COMP_FILTER: "Filter 2",
-            PL_LINE: "PL 2",
-            PL_FILTER: "F1,f2,f3",
-            CONFIG_IS_ACTIVE: false,
-            LAST_RUN: "2023-01-01",
-            PART_TYPE_FILTER: "Type 2"
-        },
-        {
-            REPORT_ID: 2,
-            LINE_REVIEW: "Review 2",
-            REPORT_IS_ACTIVE: true,
-            BASE_LINE: "Base 2",
-            BASE_FILTER: "Filter 2",
-            COMP_LINE: "Comp 2",
-            COMP_FILTER: "Filter 2",
-            PL_LINE: "PL 2",
-            PL_FILTER: "F1,f2,f3",
-            CONFIG_IS_ACTIVE: false,
-            LAST_RUN: "2023-01-01",
-            PART_TYPE_FILTER: "Type 2"
-        },
-        {
-            REPORT_ID: 2,
-            LINE_REVIEW: "Review 2",
-            REPORT_IS_ACTIVE: true,
-            BASE_LINE: "Base 2",
-            BASE_FILTER: "Filter 2",
-            COMP_LINE: "Comp 2",
-            COMP_FILTER: "Filter 2",
-            PL_LINE: "PL 2",
-            PL_FILTER: "F1,f2,f3",
-            CONFIG_IS_ACTIVE: false,
-            LAST_RUN: "2023-01-01",
-            PART_TYPE_FILTER: "Type 2"
-        },
-        {
-            REPORT_ID: 2,
-            LINE_REVIEW: "Review 2",
-            REPORT_IS_ACTIVE: true,
-            BASE_LINE: "Base 2",
-            BASE_FILTER: "Filter 2",
-            COMP_LINE: "Comp 2",
-            COMP_FILTER: "Filter 2",
-            PL_LINE: "PL 2",
-            PL_FILTER: "F1,f2,f3",
-            CONFIG_IS_ACTIVE: false,
-            LAST_RUN: "2023-01-01",
-            PART_TYPE_FILTER: "Type 2"
-        },
-        {
-            REPORT_ID: 2,
-            LINE_REVIEW: "Review 2",
-            REPORT_IS_ACTIVE: true,
-            BASE_LINE: "Base 2",
-            BASE_FILTER: "Filter 2",
-            COMP_LINE: "Comp 2",
-            COMP_FILTER: "Filter 2",
-            PL_LINE: "PL 2",
-            PL_FILTER: "F1,f2,f3",
-            CONFIG_IS_ACTIVE: false,
-            LAST_RUN: "2023-01-01",
-            PART_TYPE_FILTER: "Type 2"
-        },
-        {
-            REPORT_ID: 2,
-            LINE_REVIEW: "Review 2",
-            REPORT_IS_ACTIVE: true,
-            BASE_LINE: "Base 2",
-            BASE_FILTER: "Filter 2",
-            COMP_LINE: "Comp 2",
-            COMP_FILTER: "Filter 2",
-            PL_LINE: "PL 2",
-            PL_FILTER: "F1,f2,f3",
-            CONFIG_IS_ACTIVE: false,
-            LAST_RUN: "2023-01-01",
-            PART_TYPE_FILTER: "Type 2"
-        },
-        {
-            REPORT_ID: 2,
-            LINE_REVIEW: "Review 2",
-            REPORT_IS_ACTIVE: true,
-            BASE_LINE: "Base 2",
-            BASE_FILTER: "Filter 2",
-            COMP_LINE: "Comp 2",
-            COMP_FILTER: "Filter 2",
-            PL_LINE: "PL 2",
-            PL_FILTER: "F1,f2,f3",
-            CONFIG_IS_ACTIVE: false,
-            LAST_RUN: "2023-01-01",
-            PART_TYPE_FILTER: "Type 2"
-        },
-        {
-            REPORT_ID: 2,
-            LINE_REVIEW: "Review 2",
-            REPORT_IS_ACTIVE: true,
-            BASE_LINE: "Base 2",
-            BASE_FILTER: "Filter 2",
-            COMP_LINE: "Comp 2",
-            COMP_FILTER: "Filter 2",
-            PL_LINE: "PL 2",
-            PL_FILTER: "F1,f2,f3",
-            CONFIG_IS_ACTIVE: false,
-            LAST_RUN: "2023-01-01",
-            PART_TYPE_FILTER: "Type 2"
-        },
-        {
-            REPORT_ID: 2,
-            LINE_REVIEW: "Review 2",
-            REPORT_IS_ACTIVE: true,
-            BASE_LINE: "Base 2",
-            BASE_FILTER: "Filter 2",
-            COMP_LINE: "Comp 2",
-            COMP_FILTER: "Filter 2",
-            PL_LINE: "PL 2",
-            PL_FILTER: "F1,f2,f3",
-            CONFIG_IS_ACTIVE: false,
-            LAST_RUN: "2023-01-01",
-            PART_TYPE_FILTER: "Type 2"
-        },
-        {
-            REPORT_ID: 2,
-            LINE_REVIEW: "Review 2",
-            REPORT_IS_ACTIVE: true,
-            BASE_LINE: "Base 2",
-            BASE_FILTER: "Filter 2",
-            COMP_LINE: "Comp 2",
-            COMP_FILTER: "Filter 2",
-            PL_LINE: "PL 2",
-            PL_FILTER: "F1,f2,f3",
-            CONFIG_IS_ACTIVE: false,
-            LAST_RUN: "2023-01-01",
-            PART_TYPE_FILTER: "Type 2"
-        },
-        {
-            REPORT_ID: 2,
-            LINE_REVIEW: "Review 2",
-            REPORT_IS_ACTIVE: true,
-            BASE_LINE: "Base 2",
-            BASE_FILTER: "Filter 2",
-            COMP_LINE: "Comp 2",
-            COMP_FILTER: "Filter 2",
-            PL_LINE: "PL 2",
-            PL_FILTER: "F1,f2,f3",
-            CONFIG_IS_ACTIVE: false,
-            LAST_RUN: "2023-01-01",
-            PART_TYPE_FILTER: "Type 2"
-        },
-        {
-            REPORT_ID: 2,
-            LINE_REVIEW: "Review 2",
-            REPORT_IS_ACTIVE: true,
-            BASE_LINE: "Base 2",
-            BASE_FILTER: "Filter 2",
-            COMP_LINE: "Comp 2",
-            COMP_FILTER: "Filter 2",
-            PL_LINE: "PL 2",
-            PL_FILTER: "F1,f2,f3",
-            CONFIG_IS_ACTIVE: false,
-            LAST_RUN: "2023-01-01",
-            PART_TYPE_FILTER: "Type 2"
-        },
-        {
-            REPORT_ID: 2,
-            LINE_REVIEW: "Review 2",
-            REPORT_IS_ACTIVE: true,
-            BASE_LINE: "Base 2",
-            BASE_FILTER: "Filter 2",
-            COMP_LINE: "Comp 2",
-            COMP_FILTER: "Filter 2",
-            PL_LINE: "PL 2",
-            PL_FILTER: "F1,f2,f3",
-            CONFIG_IS_ACTIVE: false,
-            LAST_RUN: "2023-01-01",
-            PART_TYPE_FILTER: "Type 2"
-        },
-        {
-            REPORT_ID: 2,
-            LINE_REVIEW: "Review 2",
-            REPORT_IS_ACTIVE: true,
-            BASE_LINE: "Base 2",
-            BASE_FILTER: "Filter 2",
-            COMP_LINE: "Comp 2",
-            COMP_FILTER: "Filter 2",
-            PL_LINE: "PL 2",
-            PL_FILTER: "F1,f2,f3",
-            CONFIG_IS_ACTIVE: false,
-            LAST_RUN: "2023-01-01",
-            PART_TYPE_FILTER: "Type 2"
-        },
-        {
-            REPORT_ID: 2,
-            LINE_REVIEW: "Review 2",
-            REPORT_IS_ACTIVE: true,
-            BASE_LINE: "Base 2",
-            BASE_FILTER: "Filter 2",
-            COMP_LINE: "Comp 2",
-            COMP_FILTER: "Filter 2",
-            PL_LINE: "PL 2",
-            PL_FILTER: "F1,f2,f3",
-            CONFIG_IS_ACTIVE: false,
-            LAST_RUN: "2023-01-01",
-            PART_TYPE_FILTER: "Type 2"
-        },
-        {
-            REPORT_ID: 2,
-            LINE_REVIEW: "Review 2",
-            REPORT_IS_ACTIVE: true,
-            BASE_LINE: "Base 2",
-            BASE_FILTER: "Filter 2",
-            COMP_LINE: "Comp 2",
-            COMP_FILTER: "Filter 2",
-            PL_LINE: "PL 2",
-            PL_FILTER: "F1,f2,f3",
-            CONFIG_IS_ACTIVE: false,
-            LAST_RUN: "2023-01-01",
-            PART_TYPE_FILTER: "Type 2"
-        },
-        {
-            REPORT_ID: 2,
-            LINE_REVIEW: "Review 2",
-            REPORT_IS_ACTIVE: true,
-            BASE_LINE: "Base 2",
-            BASE_FILTER: "Filter 2",
-            COMP_LINE: "Comp 2",
-            COMP_FILTER: "Filter 2",
-            PL_LINE: "PL 2",
-            PL_FILTER: "F1,f2,f3",
-            CONFIG_IS_ACTIVE: false,
-            LAST_RUN: "2023-01-01",
-            PART_TYPE_FILTER: "Type 2"
-        },
-        {
-            REPORT_ID: 2,
-            LINE_REVIEW: "Review 2",
-            REPORT_IS_ACTIVE: true,
-            BASE_LINE: "Base 2",
-            BASE_FILTER: "Filter 2",
-            COMP_LINE: "Comp 2",
-            COMP_FILTER: "Filter 2",
-            PL_LINE: "PL 2",
-            PL_FILTER: "F1,f2,f3",
-            CONFIG_IS_ACTIVE: false,
-            LAST_RUN: "2023-01-01",
-            PART_TYPE_FILTER: "Type 2"
-        },
-        {
-            REPORT_ID: 2,
-            LINE_REVIEW: "Review 2",
-            REPORT_IS_ACTIVE: true,
-            BASE_LINE: "Base 2",
-            BASE_FILTER: "Filter 2",
-            COMP_LINE: "Comp 2",
-            COMP_FILTER: "Filter 2",
-            PL_LINE: "PL 2",
-            PL_FILTER: "F1,f2,f3",
-            CONFIG_IS_ACTIVE: false,
-            LAST_RUN: "2023-01-01",
-            PART_TYPE_FILTER: "Type 2"
-        },
-        {
-            REPORT_ID: 2,
-            LINE_REVIEW: "Review 2",
-            REPORT_IS_ACTIVE: true,
-            BASE_LINE: "Base 2",
-            BASE_FILTER: "Filter 2",
-            COMP_LINE: "Comp 2",
-            COMP_FILTER: "Filter 2",
-            PL_LINE: "PL 2",
-            PL_FILTER: "F1,f2,f3",
-            CONFIG_IS_ACTIVE: false,
-            LAST_RUN: "2023-01-01",
-            PART_TYPE_FILTER: "Type 2"
-        },
-        {
-            REPORT_ID: 2,
-            LINE_REVIEW: "Review 2",
-            REPORT_IS_ACTIVE: true,
-            BASE_LINE: "Base 2",
-            BASE_FILTER: "Filter 2",
-            COMP_LINE: "Comp 2",
-            COMP_FILTER: "Filter 2",
-            PL_LINE: "PL 2",
-            PL_FILTER: "F1,f2,f3",
-            CONFIG_IS_ACTIVE: false,
-            LAST_RUN: "2023-01-01",
-            PART_TYPE_FILTER: "Type 2"
-        },
-        {
-            REPORT_ID: 2,
-            LINE_REVIEW: "Review 2",
-            REPORT_IS_ACTIVE: true,
-            BASE_LINE: "Base 2",
-            BASE_FILTER: "Filter 2",
-            COMP_LINE: "Comp 2",
-            COMP_FILTER: "Filter 2",
-            PL_LINE: "PL 2",
-            PL_FILTER: "F1,f2,f3",
-            CONFIG_IS_ACTIVE: false,
-            LAST_RUN: "2023-01-01",
-            PART_TYPE_FILTER: "Type 2"
-        },
-        {
-            REPORT_ID: 2,
-            LINE_REVIEW: "Review 2",
-            REPORT_IS_ACTIVE: true,
-            BASE_LINE: "Base 2",
-            BASE_FILTER: "Filter 2",
-            COMP_LINE: "Comp 2",
-            COMP_FILTER: "Filter 2",
-            PL_LINE: "PL 2",
-            PL_FILTER: "F1,f2,f3",
-            CONFIG_IS_ACTIVE: false,
-            LAST_RUN: "2023-01-01",
-            PART_TYPE_FILTER: "Type 2"
-        },
-        {
-            REPORT_ID: 2,
-            LINE_REVIEW: "Review 2",
-            REPORT_IS_ACTIVE: true,
-            BASE_LINE: "Base 2",
-            BASE_FILTER: "Filter 2",
-            COMP_LINE: "Comp 2",
-            COMP_FILTER: "Filter 2",
-            PL_LINE: "PL 2",
-            PL_FILTER: "F1,f2,f3",
-            CONFIG_IS_ACTIVE: false,
-            LAST_RUN: "2023-01-01",
-            PART_TYPE_FILTER: "Type 2"
-        },
-        {
-            REPORT_ID: 2,
-            LINE_REVIEW: "Review 2",
-            REPORT_IS_ACTIVE: true,
-            BASE_LINE: "Base 2",
-            BASE_FILTER: "Filter 2",
-            COMP_LINE: "Comp 2",
-            COMP_FILTER: "Filter 2",
-            PL_LINE: "PL 2",
-            PL_FILTER: "F1,f2,f3",
-            CONFIG_IS_ACTIVE: false,
-            LAST_RUN: "2023-01-01",
-            PART_TYPE_FILTER: "Type 2"
-        },
-        {
-            REPORT_ID: 2,
-            LINE_REVIEW: "Review 2",
-            REPORT_IS_ACTIVE: true,
-            BASE_LINE: "Base 2",
-            BASE_FILTER: "Filter 2",
-            COMP_LINE: "Comp 2",
-            COMP_FILTER: "Filter 2",
-            PL_LINE: "PL 2",
-            PL_FILTER: "F1,f2,f3",
-            CONFIG_IS_ACTIVE: false,
-            LAST_RUN: "2023-01-01",
-            PART_TYPE_FILTER: "Type 2"
-        }
+    const handleCreateUser = async ({ values, table }) => {
+        const currentESTTimestamp = moment().tz('America/NEW_YORK').format('YYYY-MM-DD HH:mm:ss');
+        values['CONFIG_UPDATED_DATE'] = currentESTTimestamp
+        console.log("New row values:", values);
+        await insertRowInSnowflake(values); // Call to insert the new row in Snowflake
+        table.setCreatingRow(null); // Exit creating mode
+    };
 
-        // Add more data objects as needed
-    ], []);
+    const columns = useMemo(() => {
+        return tableColumns
+            .filter(col => col !== 'ID') // Exclude 'ID' column from the table
+            .map(col => {
+                // Configure the 'ENABLE_CONFIG' column as a select menu
+                if (col === 'ENABLE_CONFIG') {
+                    return {
+                        accessorKey: col,
+                        header: col.split('_').join(' '),
+                        enableEditing: true, // Allow editing for 'ENABLE_CONFIG'
+                        editVariant: 'select',
+                        editSelectOptions: ['Y', 'N'],   
+                    };
+            }
     
-    // const table = useMaterialReactTable({
-    //     columns,
-    //     data,
-    //     enableClickToCopy: true,
-    //     enableRowSelection: true,
-    //     enableA
-    //     initialState: { pagination: { pageSize: 5, pageIndex: 0 } },
-    // });
+                // Configuration for other columns
+                return {
+                    accessorKey: col,
+                    header: col.split('_').join(' '),
+                    enableEditing: !['CONFIG_UPDATED_DATE','BASE_LINE','COMP_LINE','PL_LINE'].includes(col), // Disable editing for 'CONFIG_UPDATE_DATE'
+                    muiTableBodyCellEditTextFieldProps: ({ row }) => {
+                        if (row.original && row.original.ID === undefined && col === 'CONFIG_UPDATE_DATE') {
+                            // When creating a new row (row.original.ID is undefined), hide CONFIG_UPDATE_DATE
+                            return { sx: { display: 'none' } }; // Hide the CONFIG_UPDATE_DATE field
+                        }
+                        return {};
+                    },
+                };
+            });
+    }, [tableColumns]);
+    
+
+    const data = useMemo(() => {
+        return rows.map(row => {
+            const rowData = {};
+            tableColumns.forEach((col, index) => {
+                rowData[col] = row[index];
+            });
+            return rowData;
+        });
+    }, [tableColumns, rows]);
+
     const table = useMaterialReactTable({
         columns,
         data,
         enableClickToCopy: true,
-        enableRowSelection: true,
+        enableEditing: true,
         enableStickyHeader: true,
         enableColumnResizing: true,
-        enableColumnPinning: true,
+        createDisplayMode: 'modal',
+        onCreatingRowSave: handleCreateUser,
+        muiTableContainerProps: {
+            sx: (theme) => ({
+                "td[data-pinned='true']::before, th[data-pinned='true']::before": {
+                    background: theme.palette.primary.main,
+                },
+                "td[data-pinned='true']::before, th[data-pinned='true']": {
+                    color: theme.palette.primary.contrastText,
+                },
+            }),
+        },
+        onEditingRowSave: async ({ row, values }) => {
+            values['ID'] = row.original.ID;  // Ensure ID is preserved during edit
+            console.log("Updated row values:", values);
+            await updateRowInSnowflake(values);
+            table.setEditingRow(null);
+        },
+
         enableMultiRowSelection: false,
         initialState: { pagination: { pageSize: 5, pageIndex: 0 } },
         renderTopToolbarCustomActions: ({ table }) => (
-          <Button
-            onClick={() => {
-              const rowSelection = table.getState().rowSelection; //read state
-                    const selectedRows = table.getSelectedRowModel().rows; //or read entire rows
-                console.log("selected rows:", selectedRows)
-            }}
-          >
-            Download Selected Users
-          </Button>
+            //<Button
+            //     onClick={() => {
+            //         table.setCreatingRow(true); 
+            //         console.log("Creating a new comparison");
+            //     }}
+            // >
+            //     Create New Comparison
+            // </Button>
+            <ModelComponent 
+            isDialogOpen= {isDialogOpen}  
+            handleDialogClose = {handleDialogClose}
+            formValues = {formValues}
+            handleInputChange = {handleInputChange}
+            handleDialogOpen = {handleDialogOpen}
+            handleFormSubmit = {handleFormSubmit}
+            />
         ),
-      });
-      
-      useEffect(() => {
-        //fetch data based on row selection state or something
-      }, [table.getState().rowSelection]);
-    
+    });
+
     return (
         <Container>
             <Typography
