@@ -68,3 +68,15 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+
+mobile phones 
+
+1. iq z9s5g
+2. realme 13+ 5g
+3. motorola edge fusion 50
+4. poco x6
+4. mototola g455g
+5. opp a3 pro 5g
+

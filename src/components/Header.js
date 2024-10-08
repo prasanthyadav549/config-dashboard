@@ -33,7 +33,7 @@ export default function MenuAppBar() {
     <div>
      
         <Box sx={{ flexGrow: 1 }}>
-          <AppBar position="static"
+          <AppBar position="static" color ="transparent"
            sx={{
           backgroundImage: `linear-gradient(90deg, black 0%, black 100%)`
             }}
@@ -45,7 +45,7 @@ export default function MenuAppBar() {
                 color: 'yellow'
               }}
               >
-                Fitment Configuration Dashboard
+                Fitment Gap Analysis
             </Typography>
 
             <Box sx={{ flexGrow: 1 }} />
@@ -56,10 +56,10 @@ export default function MenuAppBar() {
             <img  src='/advance-logo.png' alt='Advance Auto Parts'
               style ={{
                 width: 'auto',
-                maxWidth: '200px',
+                maxWidth: '150px',
                 height: 'auto',
                 marginRight: '10px',
-                padding: '8px',
+                // padding: '8px',
                 marginLeft: '0px',
                 flexShrink: 0
               }}
