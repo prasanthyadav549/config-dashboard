@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react'
 
 
-const fitmentContext = createContext()
+const fitmentContext = createContext({})
 
 const FitmentContext = ({children}) => {
 
@@ -39,7 +39,7 @@ const FitmentContext = ({children}) => {
 
     const fetchToken = useCallback(() => {
         console.log('token is changed');
-        setToken('eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhYXBub25wcm9kLkFBUF9QUk9EVUNUX1BJTV9ERVZfVVNFUi5TSEEyNTY6alFOMjBsR0JXRnZLN2VjQlprZ3YxNDBkVGwrZkd4VU1EMWZkMXpuQkFmND0iLCJzdWIiOiJhYXBub25wcm9kLkFBUF9QUk9EVUNUX1BJTV9ERVZfVVNFUiIsImlhdCI6MTcyODM3NTE3MywiZXhwIjoxNzMwOTY3MTczfQ.CcS75ogZOwiAQVfcbuHBfh8neWhgfeAS3DcnQFdRvnueq4bIVrQo6PhCcB3P7rpMDZeLNaA9ENr00vT6nSM1hMF8Za-9VhkiKS7TujRm1kmMNx3H7CvfGlHxeGlhun-Jx4nhYB_SvfUFkf_1wDEqJiTKg_R0ls1uRtOfPcJsEgecTeVus2r8mU7kVf9617wQFj0jjP5O7nxhQnrs26_OKDRszDUWSUyBWFF9N6QQ8440bp47jcrDFBSskor1BSpFeh5jxtaiI2LA6hSXp-nMrB0q5i5yqTKCYWNi1e6qBBn3nP8BfaWDVLF7OqCmtC01JzCVw5bRl0AtkIsb_xklfA'); 
+        setToken('eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhYXBub25wcm9kLkFBUF9QUk9EVUNUX1BJTV9ERVZfVVNFUi5TSEEyNTY6alFOMjBsR0JXRnZLN2VjQlprZ3YxNDBkVGwrZkd4VU1EMWZkMXpuQkFmND0iLCJzdWIiOiJhYXBub25wcm9kLkFBUF9QUk9EVUNUX1BJTV9ERVZfVVNFUiIsImlhdCI6MTcyODM5NTgzMSwiZXhwIjoxNzMwOTg3ODMxfQ.nosmF5B3E-A6pbaxG1iYMbahwDLcLZ7c2IBkfNF8nM1eokOTufM_QV6iFWVzZjjVU3RTP_peXCdjVVN9W5qvbffIXW9kWdY2zraRsQYC3IiotMHyljydIxV9J7M251znjp2Ku6JAgV8ToIGHvO2b7y321HlAuDot0mV2XyEM5swVSxOdzy34FpyzBogVlJa-vthdDKGZ9uRNrsCmJ-iT2KU2UTQvJS9JDMfBNtt4g6cyGSexiaX6vy6qt7Cv4kRL7WF_YPNgl3jiH8F8GWTH3cBKgZxj-M_NMJZyiXeJgMBjGMcJnt6HNBp6qzwky7LNlOvXGSH69_l52cT7gJ-mFQ'); 
       }, []);
 
     
